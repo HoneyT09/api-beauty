@@ -133,7 +133,7 @@ router.post('/reset-password', (req, res, next) => {
                 from: 'torresliset12@gmail.com',
                 to: email,
                 subject: 'Recuperacion de Contraseña',
-                text: ('Tu codigo de acceso con el que puedes entrar a Cono-C es: ' + newPassword + '. Una vez que ingreses puedes cambiarla en cualquier momento.')
+                text: ('Tu contraseña con la que puedes entrar es: ' + newPassword + '.')
             };
 
             const transport = nodemailer.createTransport(config);
