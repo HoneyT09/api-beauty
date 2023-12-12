@@ -28,6 +28,21 @@ const storage = multer.diskStorage({
     }
 });
 
+router.get('/get-user/:id', (req, res, next) => {
+    const userId = req.params.id;
+
+    User.findById(userId).then(user => {
+        if (user && user.claveTemp === userId) {
+            res.status(200).json({ success: true, message: 'Usuario encontrado', user: user });
+        } else {
+            res.status(404).json({ success: false, message: 'Usuario no encontrado o claveTemp no coincide' });
+        }
+    }).catch(error => {
+        res.status(500).json({ success: false, message: 'Error interno del servidor' });
+    });
+});
+
+
 router.post('', multer({ storage: storage }).single("image"), (req, res, next) => {
     const url = req.protocol + '//' + req.get("host");
     const newPassword = randomstring.generate({ length: 10, charset: 'numeric' });
